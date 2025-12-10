@@ -4,116 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
     <title>Interactive HTML</title>
     <script src="js/d3.v7.js"></script>
-    <style>
-        
-        body {
-            font-family: Roboto;
-            background-color: #f8e7f8;
-            color: #2a326e;
-        }
-        h1 {
-            color: #2a326e;
-            font-size: 28px;
-        }
-        .headers {
-            color: #2a326e;
-            display: flex;
-        }
-        h3 {
-            color: #2a326e;
-        }
-        .headers subtitle {
-            /* font-size: 18px;
-            color: #484d71; */
-            color: #2a326e;
-            font-size: 24px;
-            align-self: center;
-            padding-left: 10px;
-
-        }
-        /* header {
-            margin-bottom: 12px;
-        } */
-        .main {
-            width:fit-content;
-            display: grid;
-            place-items: center;
-            padding: 1em;
-            border-radius: 10px;
-            background-color: #ffffff;
-            box-shadow: 0px 3px 12px rgba(183, 8, 93, 0.361);
-        } 
-        #dash {
-            visibility: hidden;
-            pointer-events: none;
-            opacity: 0;
-            transition: opacity 0.3s ease-in-out;
-            width:fit-content;
-            display: grid;
-            place-items: center;
-            /* display: flex;
-            justify-content: center; */
-            padding: 1em;
-            border-radius: 10px;
-            background-color: #ffffff;
-            margin-left: 7px;
-            box-shadow: 0px 3px 12px rgba(107, 8, 183, 0.361);
-        }
-        #dash.is-visible {
-            visibility: visible;
-            pointer-events: auto; /* Allows interaction when visible */
-            opacity: 1;
-        }
-        #bar-group {
-            display:flex;
-        }
-        .panel {
-            display: flex;
-            justify-content: space-evenly;
-        }
-        select {
-            width: 250px;
-            font-size: 16px; 
-            height: 40px;
-            line-height: 1.5;
-            border-radius: 10px;
-            border-width: 2px;
-            border-color: #2a326e;
-            color: #2a326e;
-            text-align: center;
-        }
-        #close-chart-button {
-            width: 75px;
-            font-size: 16px; 
-            height: 40px;
-            line-height: 1.5;
-            border-radius: 10px;
-            border-width: 2px;
-            border-color: #2a326e;
-            background-color: #e4c6e4; /*#c6caec;*/
-            color: #2a326e;
-            text-align: center;
-        }
-        option {
-            color: #2a326e;
-        }
-        /* #note {
-            font-size: 10px;
-        } */
-        #citations {
-            font-size: 10px;
-            display: flex;
-            justify-content: right;
-        }
-    </style>
 </head>
 <body>
 
-<!-- Create an element where the map will take place -->
+<!-- Intro -->
 <div>
     <div class="headers"> 
     <header>
@@ -125,8 +24,8 @@
     </div>
     <div id = "preamble" class="general-text">
         <p>Affordable and accessible childcare is a nationwide issue.
-            The U.S. Department of Health and Human Services defines childcare 
-            as affordable if it costs no more than 7% of annual household income.
+            The U.S. Department of Health and Human Services defines <a href="https://www.chicagofed.org/publications/chicago-fed-insights/2024/childcare-access-affordability-seventh-district">childcare 
+            as affordable if it costs no more than 7% of annual household income</a>.
             <strong>Click around on the states below to see if this benchmark was within reach for most Americans in 2022.</strong> 
             According to the National Database on Childcare Prices, "center" data represents childcare provided in 
             commercial buildings, serving multiple groups or
@@ -134,19 +33,24 @@
             small groups of children in a residential building, such as
             a house, apartment, or condo unit.</p>
         <p>In the years since 2022, cost of living related expenses have exploded. Childcare costs in particular have continued to soar across the country, with the 
-            exception of New Mexico, which has become the first state to offer free childcare to all residents. <strong>Take a look at the map's dropdown
-            menu and see how states rank in terms of restrictive regulatory environments and childcare center quality.</strong> Reliable, quality childcare
+            exception of New Mexico, which has become the first state to offer free childcare to all residents. 
+            Trying to disentangle drivers of cost can be quite complicated. West Virginia University ranked states by how legally restrictive their 
+            operating requirements for childcare establishments are. Meanwhile, the Childcare Aware of America
+            is an advocacy group that did a ranking of states for childcare center quality, considering
+            many of the same criteria as WVU. <strong>Try out the map's dropdown
+            menu and to explore the complex and at times tenous relationship between regulation, quality, and affordability.</strong></p>
+        <p>Reliable, quality childcare 
             is necessary for the health and flourishing of our nation's families. How do you think its absence is affecting your community?
         </p>
     </div>
-        
-    
 </div>
 
+
+<!-- Visuals -->
 <div class="panel">
 <div class="main">
 <div id="maingraphic" class="section">
-<svg id="hexbinmap" width="750" height="500"></svg>
+    <svg id="hexbinmap" width="750" height="500"></svg>
 </div>
 
 <div class="select is-multiple">
@@ -154,7 +58,6 @@
     <option value="default">--Select a Dropdown--</option>
     <option value="R_Rank">Regulatory Restrictiveness</option>
     <option value="Qual_Rank">Childcare Center Quality</option>
-    <!-- Add options for all 8 cost columns + MHI -->
 </select>
 </div>
 </div>
@@ -170,7 +73,10 @@
     <button id="close-chart-button" class="delete">Close</button>
 </div>
 </div>
+
+<!-- Citations -->
 <div id="citations">
+    <p>*Some states have no pricing information, and the following states had incomplete NDCP data: New Hampshire, District of Columbia, Hawaii.</p>
     <blockquote>
     Data Sources -- 2022 NCDP 
     <a href="https://www.dol.gov/agencies/wb/topics/featured-childcare">(Childcare Prices)</a>
@@ -178,595 +84,14 @@
     <a href="https://csorwvu.com/childcare_regulation_index_1/">(Regulatory Restrictiveness Ranking)</a>
     , Childcare Aware of America 
     <a href="https://info.childcareaware.org/hubfs/wecandobetter_20rankings2020041013(1).pdf">(Childcare Center Quality Ranking)</a>
+    , US ACS 
+    <a href="https://www.census.gov/library/publications/2023/demo/p60-279.html">(2022 MHI Data)</a>
     </blockquote>
 </div>
 
 
 <section>
-<script>
-// The svg
-const svg = d3.select("#hexbinmap"),
-    width = +svg.attr("width"),
-    height = +svg.attr("height");
-
-const detailDashContainer = d3.select("#dash");
-
-d3.select("#close-chart-button").on("click", function() {
-    detailDashContainer.classed("is-visible", false);
-    //detailDashContainer.classed("is-hidden", true);
-    });
-
-// Map and projection
-const projection = d3.geoMercator()
-    .scale(500) // This is the zoom
-    .translate([1210, 650]); // You have to play with these values to center your map
-
-// Path generator
-const path = d3.geoPath()
-    .projection(projection)
-
-function overSelect(event) {
-    d3.select(this).style("background-color", "#f3f4f6");
-}
-function offSelect(event) {
-    d3.select(this).style("background-color", "#ffffff");
-}
-
-let selectDrop = d3.select("#dropdown-selector")
-    .on("mouseover", overSelect)
-    .on("mouseleave", offSelect)
-
-let tooltip = d3.select("#maingraphic")
-    .append("div")
-    .style("opacity", 0)
-    .attr("class", "tooltip")
-    .style("background-color", "white")
-    .style("border", "solid")
-    .style("border-width", "2px")
-    .style("border-radius", "5px")
-    .style("border-color", "#2a326e")
-    .style("padding", "5px")
-    .style("font-size", 10)
-    .style("fill", "#2a326e")
-    .style("position", "absolute");
-
-let mouseover = function(event, d) {
-    tooltip.style("opacity", 1)
-    d3.select(this).style("cursor", "pointer");
-};
-let mousemove = function(event, d) {
-    //console.log(event)
-    const childPop = 72500000
-    if (currentDataKey === 'default') {
-        message = "This cell represents " + `<strong>${((d.properties.CHILD_POP)/725000).toFixed(2)}%</strong>` + " of American children.";
-    } else if (currentDataKey === 'R_Rank') {
-        if (d.properties.R_Rank === null) {
-            message = "Not Ranked"
-        } else {
-        message = "Rank:" + `${d.properties.R_Rank}`;
-        }
-    } else {
-        message = "Rank:" + `${d.properties.Qual_Rank}`
-    }
-    tooltip
-    .html(message) //<br> moved
-    .style("left", (event.pageX + 10) + "px")
-    .style("top", (event.pageY - 10) + "px")
-    //console.log(tooltip)
-};
-let mouseleave = function(d) {
-    tooltip.style("opacity", 0)
-    d3.select(this).style("cursor", "default");
-};
-
-let currentDataKey = 'default';
-
-function getCostKeys(type) {
-    if (type === "CENTER") {
-        return [["ADJ_CENTER_INFANT_COST", 
-        "ADJ_CENTER_TODDLER_COST", 
-        "ADJ_CENTER_PRESCHOOL_COST", 
-        "ADJ_CENTER_SCHOOLAGE_COST"], {"ADJ_CENTER_INFANT_COST":"Infant", 
-        "ADJ_CENTER_TODDLER_COST":"Toddler", 
-        "ADJ_CENTER_PRESCHOOL_COST":"Preschool", 
-        "ADJ_CENTER_SCHOOLAGE_COST":"School Age"}, {"CENTER": "Center"}];
-    } else {
-        return [["ADJ_FAMILY_INFANT_COST", 
-        "ADJ_FAMILY_TODDLER_COST", 
-        "ADJ_FAMILY_PRESCHOOL_COST", 
-        "ADJ_FAMILY_SCHOOLAGE_COST"], {"ADJ_FAMILY_INFANT_COST":"Infant", 
-        "ADJ_FAMILY_TODDLER_COST":"Toddler", 
-        "ADJ_FAMILY_PRESCHOOL_COST":"Preschool", 
-        "ADJ_FAMILY_SCHOOLAGE_COST":"School Age"}, {"FAMILY": "Family"}];
-    }
-;}
-
-// const detailBarContainer = d3.select("#center-bar-svg") // Or select an existing div
-//     .attr("width", 180)
-//     .attr("height", 410)
-//     .attr("viewBox", "0 0 160 410"); 
-
-const dashHeader = d3.select("#Dash-header")
-
-const customTick = (d) => `${parseInt(d*100)}%`;
-
-function renderExtraLine() {
-    const barExtra = d3.select("#dhhs-expl")
-        .attr("width", 85)
-        .attr("height", 410)
-        .attr("viewBox", "0 0 85 410");
-
-    barExtra.selectAll("*").remove();
-    
-    const yScale = d3.scaleLinear()
-        .domain([0, 0.26]) // e.g. Max cost share 30%
-        .range([355, 70]); // within chart container
-
-    barExtra.append("line")
-        .attr('class', 'dhhs-marker')
-        .attr('x1', 0)
-        .attr('y1', yScale(.07))
-        .attr('x2', 85)
-        .attr('y2', yScale(.07))
-        .style('stroke', 'black')
-        .style("stroke-dasharray", ("3, 3"))
-        .attr("stroke-width", 2);
-
-    barExtra
-        .append("text")
-        .style("fill", "#2a326e")
-        .attr("text-anchor", "middle")
-        .attr("x", 12)
-        .attr("y", yScale(.07) - 45)
-        .append("tspan")
-        .text("US HHS")
-        .attr("x", 40) // Set x-coordinate for the first line
-        .append("tspan")
-        .attr("x", 40) // Set x-coordinate for subsequent lines to align them
-        .attr("dy", "1.2em") // Offset the y-coordinate for the next line
-        .text("Budgetary")
-        .append("tspan")
-        .attr("x", 40)
-        .attr("dy", "1.2em")
-        .text("Suggestion");
-}
-
-function renderDetailChart(stateDataProperties, stateName, type, id) {
-    // Clear previous chart elements
-
-    dashHeader
-    .html("2022 " + `${stateName}` + " at a Glance"
-    )
-
-    detailDashContainer.classed("is-visible", true);
-
-    const detailBarContainer = d3.select(id) // Or select an existing div
-        .attr("width", 200)
-        .attr("height", 410)
-        .attr("viewBox", "0 0 200 410");
-
-    detailBarContainer.selectAll("*").remove();
-
-    noDataStates = ["Arkansas", "New Mexico", "Vermont", "Indiana", "Pennsylvania", "Missouri"]
-
-    const [costKeys, ageLabels, typeLabels] = getCostKeys(type)
-
-    // Transform the properties object into an array for D3
-    const chartData = costKeys.map(key => ({ 
-        label: ageLabels[key], //key.replace('ADJ_'+ `${type}_`, '').replace('_COST', ''), // Clean up labels for display
-        value: stateDataProperties[key]
-    }));
-    
-    // Define Scales (adjust domains/ranges as necessary)
-    const xScale = d3.scaleBand()
-        .domain(chartData.map(d => d.label))
-        .range([0, 140]) // within chart container
-        .padding(0.1);
-
-    detailBarContainer.append("g")
-        .attr("class", "bar-x-axis")
-        .attr("transform", `translate(30,${360})`)
-        .call(d3.axisBottom(xScale))
-        .selectAll("text")
-        .attr("transform", "translate(-10,0)rotate(-45)")
-        .style("text-anchor", "end")
-        .style("fill", "#2a326e");
-
-    const yScale = d3.scaleLinear()
-        .domain([0, 0.26]) // e.g. Max cost share 30%
-        .range([355, 70]); // within chart container
-
-    detailBarContainer.append("g")
-        .attr("class", "bar-y-axis")
-        .call(d3.axisLeft(yScale).tickFormat(customTick))
-        .attr("transform", `translate(30,0)`);
-
-    function overBar(event, d) {
-        d3.select(this).style("opacity", .8)
-        console.log(`#${stateName}-` + `${type}-` + `${d.label}`)
-        d3.select("#Rhode Island-CENTER-Infant").style("fill", "black")
-        d3.select(`#${stateName}-` + `${type}-` + `${d.label}`)
-            .style("opacity", 1);
-    };
-
-    function offBar(event, d) {
-        d3.select(this).style("opacity", 1)
-        d3.select(`#${stateName}-` + `${type}-` + `${d.label}`)
-            .style("opacity", 0);
-    };
-
-    textBastardry = {"CENTER": {"text": "Cost to Send One Child", "x1":32, "x2": 82, "y":12, "sub": "of State Median"}, 
-                    "FAMILY": {"text": "to Daycare Expressed as %", "x1":0, "x2": 0, "y":12, "sub": "Household Income"}}
-
-    if (noDataStates.includes(stateName) || (stateName === "Mississippi" & type === "FAMILY")) {
-        detailBarContainer
-            .append("circle")
-            .attr("cx", 110)
-            .attr("cy", 190)
-            .attr("r", 0)
-            .style("fill", "rgb(0, 0, 0)")
-            .style("opacity", .1)
-            // .append("circle")
-            // .attr("cx", 110)
-            // .attr("cy", 190)
-            // .attr("r", 40)
-            // .style("fill", "rgb(0, 0, 0)")
-            // .style("opacity", .1)
-            // .append("circle")
-            // .attr("cx", 110)
-            // .attr("cy", 190)
-            // .attr("r", 20)
-            // .style("fill", "rgb(0, 0, 0)")
-            // .style("opacity", .1)
-        
-        detailBarContainer.selectAll("circle")
-            .transition()
-            .duration(800)
-            .attr("r", 60)
-        
-
-        detailBarContainer
-            .append("text")
-            .style("fill", "#2a326e")
-            .attr("text-anchor", "middle")
-            .attr("x", 110)
-            .attr("y", 180)
-            .append("tspan")
-            .text("No pricing data")
-            .attr("x", 110) // Set x-coordinate for the first line
-            .append("tspan")
-            .attr("x", 110) // Set x-coordinate for subsequent lines to align them
-            .attr("dy", "1.2em") // Offset the y-coordinate for the next line
-            .text("available for")
-            .append("tspan")
-            .attr("x", 110)
-            .attr("dy", "1.2em")
-            .text(`${stateName}.`);
-    
-        if (stateName === "Mississippi") {
-            detailBarContainer
-                .append("text")
-                .style("fill", "#2a326e")
-                .attr("class", "bad-text-title")
-                .attr("x", textBastardry[type]["x1"])
-                .attr("y", textBastardry[type]["y"])
-                .append("tspan")
-                .text(`${textBastardry[type]["text"]}`)
-                .attr("x", textBastardry[type]["x1"])
-                .append("tspan")
-                .attr("x", textBastardry[type]["x2"])
-                .attr("dy", "1.2em")
-                .text(`${textBastardry[type]["sub"]}`)
-
-            detailBarContainer.append("line")
-                .attr('class', 'dhhs-marker')
-                .attr('x1', 0)
-                .attr('y1', yScale(.07))
-                .attr('x2', 200)
-                .attr('y2', yScale(.07))
-                .style('stroke', 'black')
-                .style("stroke-dasharray", ("3, 3"))
-                .attr("stroke-width", 2)
-                .style('fill', "#2a326e");
-            
-            extraLine = d3.select("#dhhs-expl")
-                .style("visibility", "visible");
-        } else {
-        extraLine = d3.select("#dhhs-expl")
-            .style("visibility", "hidden");}
-    } else {
-    
-    extraLine = d3.select("#dhhs-expl")
-            .style("visibility", "visible")
-
-    //bad title solution
-    detailBarContainer
-        .append("text")
-        .style("fill", "#2a326e")
-        .attr("class", "bad-text-title")
-        .attr("x", textBastardry[type]["x1"])
-        .attr("y", textBastardry[type]["y"])
-        .append("tspan")
-        .text(`${textBastardry[type]["text"]}`)
-        .attr("x", textBastardry[type]["x1"])
-        .append("tspan")
-        .attr("x", textBastardry[type]["x2"])
-        .attr("dy", "1.2em")
-        .text(`${textBastardry[type]["sub"]}`)
-
-    // Add Title
-    detailBarContainer
-        .append("text")
-        .style("fill", "#2a326e")
-        .attr("x", 100)
-        .attr("y", 60)
-        .attr("text-anchor", "middle")
-        .text(`${typeLabels[type]}` + "-based Care");
-
-    let hoverLabelGroup = detailBarContainer.append("g")
-        .attr("class", "hover-label-group");
-
-    hoverLabelGroup.selectAll("text")
-        .data(chartData)
-        .join("text")
-        .style("fill", "#2a326e")
-        .attr("id", (d, i) => `${stateName}-` + `${type}-` + `${d.label}`)
-        .attr("class", "bar-val")
-        .attr("text-anchor", "middle")
-        .attr("x", d => xScale(d.label) + 45)
-        .attr("y", d => yScale(d.value) + 20)
-        .text(d => `${parseInt(d.value*100)}%`)
-        .style("fill", "white")
-        .style('opacity', 0);
-
-    // Draw the bars
-    detailBarContainer.selectAll(".detail-bar")
-        .data(chartData)
-        .enter().append("rect")
-        .attr("class", "detail-bar")
-        .attr("x", d => xScale(d.label) + 30) // Offset for margin
-        .attr("y", 355) // Offset for title/margin
-        .attr("width", xScale.bandwidth())
-        .attr("height", 0) // Assuming 100px main chart area height
-        .attr("fill", "#5f68b0")
-            .on("mouseover", overBar)
-            .on("mouseleave", offBar)
-
-    detailBarContainer.selectAll("rect")
-        .transition()
-        .duration(800)
-        .attr("y", d => yScale(d.value))
-        .attr("height", d => 359 - yScale(d.value))
-        .delay(function(d,i){return(i*100)})
-
-    detailBarContainer.append("line")
-        .attr('class', 'dhhs-marker')
-        .attr('x1', 0)
-        .attr('y1', yScale(.07))
-        .attr('x2', 200)
-        .attr('y2', yScale(.07))
-        .style('stroke', 'black')
-        .style("stroke-dasharray", ("3, 3"))
-        .style('fill', "#2a326e")
-        .attr("stroke-width", 2);
-        
-    // (Optional: Add axes using d3.axisBottom and d3.axisLeft)
-    }
-}
-
-function initializeMap(data) {
-    // Determine initial domain using the default key
-    // 2. The update function is much cleaner now:
-    function updateMapColors(newKey, data) {
-        currentDataKey = newKey;
-
-        //console.log(d.properties[currentDataKey])
-        // Recalculate color domain based on the properties of the selected key
-        
-        if (currentDataKey === 'default') {
-            minVal = 1;
-            maxVal = 3;
-        } else {
-            let newValues = data.map(d => d.properties[currentDataKey]);
-            minVal = d3.min(newValues);
-            maxVal = d3.max(newValues);
-        };
-
-        domvals = [minVal, maxVal]
-
-        colorScale.domain([minVal, maxVal]);
-
-        if (newKey === 'default') {
-            colors = ["#5f68b0", "#5f68b0"]
-            colorScale.range(colors);
-        } else if (newKey === 'R_Rank') {
-            colors = ["#1c5fed", "#8de3db"] //#43d7c8
-            colorScale.range(colors);
-        } else {
-            colors = ["#8618ad", "#fc5dad"] //#fc5dc7
-            colorScale.range(colors);
-        }
-
-        // Select all hexagon paths and update the fill style
-        d3.selectAll(".state_hex")
-            .transition() // Smooth transition effect
-            .duration(500)
-            .style("fill", function(d) {
-                // Access the value directly from the feature properties
-                if (newKey === 'default') {
-                    return "#5f68b0";
-                } else {
-                    const value = d.properties[currentDataKey];
-                    return value ? colorScale(value) : "#a8adaa"; // Return color or grey fallback
-                };
-            });
-            
-        // Update any legends you have here
-
-        if (currentDataKey != "default") {
-            console.log(colors)
-
-            legendGroup.selectAll("*").remove();
-
-            legendGroup.append("text")
-                .attr("class", "legend-tick")
-                .attr("id", "legend-max")
-                .transition() // Smooth transition effect
-                .duration(500)
-                .attr("x", 695)
-                .attr("y", 165)
-                .text("Most")
-                .style("fill", "#2a326e")
-                .style("opacity", 1)
-
-            legendGroup.append("text")
-                .attr("class", "legend-tick")
-                .attr("id", "legend-min")
-                .transition() // Smooth transition effect
-                .duration(500)
-                .attr("x", 695)
-                .attr("y", 345)
-                .text("Least")
-                .style("fill", "#2a326e")
-                .style("opacity", 1)
-
-            grad = legendGroup.append('defs')
-                .append('linearGradient')
-                .attr('id', 'grad')
-                .attr('x1', '0%')
-                .attr('x2', '0%')
-                .attr('y1', '0%')
-                .attr('y2', '100%');
-
-            grad.selectAll('stop')
-                .data(colors)
-                .enter()
-                .append('stop')
-                .style('stop-color', function(d){ console.log(d); return d; })
-                .attr('offset', function(d,i){
-                    return 100 * (i / (colors.length - 1)) + '%';
-                });
-
-            legendGroup.append('rect')
-                .attr("id", "legend")
-                .attr('x', 650)
-                .attr('width', 40)
-                .style('fill', 'url(#grad)')
-                .transition() // Smooth transition effect
-                .duration(500)
-                .attr('y', 150)
-                .attr('height', 200)
-
-            } else {
-            d3.selectAll('.legend-tick')
-                .transition()
-                .duration(500)
-                .style("opacity", 0)
-
-            d3.select('#legend')
-                .transition() // Smooth transition effect
-                .duration(500)
-                .attr('y', 0)
-                .attr("height", 0);
-            }
-
-        }
-
-    const colorScale = d3.scaleLinear()
-    
-    // Draw the map
-    svg.append("g")
-      .attr("class", "hexagons")
-      .selectAll("path")
-      .data(data)
-      .join("path")
-          .attr("class", "state_hex")
-          .attr("id", function(d, i) {return d.properties.STATE_NAME})
-          .attr("fill", "#5f68b0")
-          .attr("d", path)
-          .attr("stroke", "white")
-          .on("click", function(event, d) {
-                renderDetailChart(d.properties, d.properties.STATE_NAME, 'CENTER', "#center-bar-svg");
-                renderDetailChart(d.properties, d.properties.STATE_NAME, 'FAMILY', "#family-bar-svg");
-                renderExtraLine();
-            })
-          .on("mouseover", mouseover)
-          .on("mousemove", mousemove)
-          .on("mouseleave", mouseleave);
-
-    // Add the labels
-    svg.append("g")
-      .attr("class", "state_labels")
-      .selectAll("labels")
-      .data(data)
-      .join("text")
-        .attr("class", "state_abbr")
-        .attr("user-select", "none")
-        .attr("x", function(d){return path.centroid(d)[0]})
-        .attr("y", function(d){return path.centroid(d)[1]})
-        .text(function(d){ return d.properties.iso3166_2})
-        .attr("text-anchor", "middle")
-        .attr("alignment-baseline", "central")
-        .style("font-size", 11)
-        .style("fill", "#2a326e")
-        .style("fill", "white")
-        .on("click", function(event, d) {
-            renderDetailChart(d.properties, d.properties.STATE_NAME, 'CENTER', "#center-bar-svg");
-            renderDetailChart(d.properties, d.properties.STATE_NAME, 'FAMILY', "#family-bar-svg");
-            renderExtraLine();
-        })
-        .on("mouseover", mouseover)
-        .on("mousemove", mousemove)
-        .on("mouseleave", mouseleave);
-
-    const legendGroup = svg.append("g")
-    .attr("class", "legend-container");
-
-    grad = legendGroup.append('defs')
-        .append('linearGradient')
-        .attr('id', 'grad')
-        .attr('x1', '0%')
-        .attr('x2', '0%')
-        .attr('y1', '0%')
-        .attr('y2', '100%');
-    
-    legendGroup.append("rect")
-        .attr("id", "legend")
-        .attr('x', 0)
-        .attr('y', 0)
-        .attr('width', 0)
-        .attr('height', 0)
-
-
-    // ... use the update function to set initial colors
-    updateMapColors(currentDataKey, data); 
-
-    d3.select("#dropdown-selector")
-        .on("change", function() {
-        const selectedValue = d3.select(this).property("value");
-        updateMapColors(selectedValue, data);
-    });
-}
-
-// // Bars
-// detailBarChart.selectAll("mybar")
-//   .data(data)
-//   .join("rect")
-//     .attr("x", d => x(d.Country))
-//     .attr("width", x.bandwidth())
-//     .attr("fill", "#69b3a2")
-//     // no bar at the beginning thus:
-//     .attr("height", d => height - y(0)) // always equal to 0
-//     .attr("y", d => y(0))
-
-// Load external data and boot
-d3.json("https://raw.githubusercontent.com/clleone/capp30239/refs/heads/main/Interactive%20Project/data/childcare.geojson").then(function(data){
-    console.log("Inspecting properties of the first feature:", data.features[0].properties);
-    initializeMap(data.features);
-})
-
-
-</script>
+<script src="script.js"></script>
 </section>
 
 </body>

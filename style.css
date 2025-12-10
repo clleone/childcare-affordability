@@ -1,0 +1,94 @@
+:root {
+  --text-color: #2a326e;
+  --background-color: #f8e7f8;
+}
+
+body {
+    font-family: Roboto;
+    background-color: #f8e7f8;
+    color: #2a326e;
+}
+
+h1 {
+    font-size: 28px;
+}
+
+.headers {
+    display: flex;
+}
+
+.headers subtitle {
+    font-size: 24px;
+    align-self: center;
+    padding-left: 10px;
+}
+
+.main {
+    width:fit-content;
+    display: grid;
+    place-items: center;
+    padding: 1em;
+    border-radius: 10px;
+    background-color: #ffffff;
+    box-shadow: 0px 3px 12px rgba(183, 8, 93, 0.361);
+}
+
+#dash {
+    visibility: hidden;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+    width:fit-content;
+    display: grid;
+    place-items: center;
+    /* display: flex;
+    justify-content: center; */
+    padding: 1em;
+    border-radius: 10px;
+    background-color: #ffffff;
+    margin-left: 7px;
+    box-shadow: 0px 3px 12px rgba(183, 8, 93, 0.361);
+}
+
+#dash.is-visible {
+    visibility: visible;
+    pointer-events: auto;
+    opacity: 1;
+}
+
+#bar-group {
+    display:flex;
+}
+
+.panel {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+select {
+    width: 250px;
+    font-size: 16px; 
+    height: 40px;
+    line-height: 1.5;
+    border-radius: 10px;
+    border-width: 2px;
+    border-color: #2a326e;
+    text-align: center;
+}
+
+#close-chart-button {
+    width: 75px;
+    font-size: 16px; 
+    height: 40px;
+    line-height: 1.5;
+    border-radius: 10px;
+    border-width: 2px;
+    border-color: #2a326e;
+    background-color: #e4c6e4; /*#c6caec;*/
+    text-align: center;
+}
+#citations {
+    font-size: 10px;
+    display: flex;
+    justify-content: right;
+}
